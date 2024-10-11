@@ -55,51 +55,239 @@ Aca lo que vamos a programar es el interfaz de Gestion de Usuarios
                      -Va a Eliminar dentro de la lista de Nombres_Usuarios el Nombre ingresado (ej =  Nombres_Usuarios.remove(Nombre_a_Borrar)  )
                 * Funcion de Eliminar_Contraseña
                      -Va a Eliminar dentro de la lista de Contraseñas_Usuarios la Contraseña ingresada (ej =  Contraseñas_Usuarios.remove(Contraseña_a_Borrar)  )
-            -Damos como finalizado la Eliminacion de la  Cuenta de Usuario y nos dirigimos a la mini interfaz nuevamente.
-                                                                            
+            -Damos como finalizado la Eliminacion de la  Cuenta de Usuario y nos dirigimos a la mini interfaz nuevamente.                                                                       
 """
 
+Lista_Usuarios = ["juan"]
 
+Lista_Contraseñas = [123]
+
+def Buscar_Usuario(Lista_Usuarios,Nombre_Usuario):
+    if (Nombre_Usuario in Lista_Usuarios):
+        print(f"Bienvenido Señor/a , {Nombre_Usuario}")
+        return True
+    else:
+        print("Usted a ingresado mal el nombre de Usuario")
+        return False
+
+def Verificar_Existencia_Usuario(Lista_Usuarios,Nombre_Usuario):
+    if (Nombre_Usuario in Lista_Usuarios):
+        print("EL NOMBRE YA SE ENCUENTRA UTILIZANDOSE, POR FAVOR INTENTE CON OTRO NUEVO")
+        return False
+    else:
+        print("EL NOMBRE SE ENCUENTA DISPONIBLE :) ")
+        return True
+    
+def Imprimir_Listas(Lista_Usuarios, Lista_Contraseñas):
+    print("Lista de Usuarios Registrados:")
+    for usuario in Lista_Usuarios:
+        print(usuario)
+    print("---------------------------------------")
+    print("Lista de Contraseñas Registradas:")
+    for contraseña in Lista_Contraseñas:
+        print(contraseña)
+
+
+def Agregar_Usuario(Lista_Usuarios,Lista_Contraseñas,Nombre_Usuario,Contraseña_Usuario):
+    Lista_Usuarios.append(Nombre_Usuario)
+    Lista_Contraseñas.append(Contraseña_Usuario) 
+    return Lista_Usuarios,Lista_Contraseñas
+
+
+def Verificar_Credenciales(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contraseña_Usuario):
+    # Verificar si el usuario existe en la lista de usuarios
+    if Nombre_Usuario in Lista_Usuarios:
+        # Obtener la posición del usuario en la lista
+        indice = Lista_Usuarios.index(Nombre_Usuario)
+        
+        # Verificar si la contraseña en esa posición coincide
+        if Lista_Contraseñas[indice] == Contraseña_Usuario:
+            return True
+        else:
+            print("La contraseña es incorrecta.")
+            return False
+    else:
+        print("El nombre de usuario no existe.")
+        return False
 
 
 
 Fin = -1
 
+##########################################################################################################
+print("=================================================================================================")
+print("|                          BIENVENIDO AL PROGRAMA DE CONTROL DE STOCKS                          |")
+print("=================================================================================================")
+print("=================================================================================================")
+print("|                     SI USTED QUIERE INGRESAR A SU CUENTA, INGRESE EL VALOR 1                  |")
+print("=================================================================================================")
+print("=================================================================================================")
+print("|                     SI USTED QUIERE CREAR A SU CUENTA, INGRESE EL VALOR 2                     |")
+print("=================================================================================================")
+print("=================================================================================================")
+print("|                     SI USTED QUIERE VER LA LISTA DE CUENTAS, INGRESE EL VALOR 3               |")
+print("=================================================================================================")
+print("=================================================================================================")
+print("|                     SI USTED QUIERE TERMINAR EL PROGRAMA, INGRESE EL VALOR -1                 |")
+print("=================================================================================================")
+##########################################################################################################
+
+print("=================================================================================================")
+Valor_Mini_Interfaz = int (input("INGRESAR SU VALOR POR VAFOR = "))
+print("=================================================================================================")
+
+while(Valor_Mini_Interfaz != Fin):
+    while((Valor_Mini_Interfaz != 1) and (Valor_Mini_Interfaz != 2) and (Valor_Mini_Interfaz != 3) and (Valor_Mini_Interfaz != Fin)):
+        print("=================================================================================================")
+        print("|                        INGRESASTE MAL EL VALOR DE LAS OPCIONES                                |")
+        print("|                             INTENTAR NUEVAMENTE POR FAVOR                                     |")
+        print("=================================================================================================")
+        print("=================================================================================================")
+        Valor_Mini_Interfaz = int (input("INGRESAR SU VALOR POR FAVOR = "))
+        print("=================================================================================================")
+
+    if(Valor_Mini_Interfaz == 1):
+        print("=================================================================================================")
+        print("|                                         INICIAR SESION                                        |")
+        print("=================================================================================================")
+        ##########################################################################################################
+        print("=================================================================================================")
+        Nombre_Usuario = str (input("INGRESAR SU NOMBRE DE USUARIO = "))
+        print("=================================================================================================")
+        ##########################################################################################################
+        print("=================================================================================================")
+        Contraseña_Usuario = int (input("INGRESAR SU CONTRASEÑA DE USUARIO = "))
+        print("=================================================================================================")
+
+        Intentos = 0
+        Max_Intentos = 3
+
+        while((Intentos < Max_Intentos) and not (Verificar_Credenciales(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contraseña_Usuario))):
+            Intentos = Intentos + 1
+
+            if(Intentos < Max_Intentos):
+                print("=================================================================================================")
+                print("|                   INCORRECTO, INGRESE NUEVAMENTE SU NOMBRE Y CONTRASEÑA                       |")
+                print("=================================================================================================")
+
+            Nombre_Usuario = input("INGRESAR SU NOMBRE DE USUARIO = ")
+            Contraseña_Usuario = input("INGRESAR SU CONTRASEÑA DE USUARIO = ")
+
+        if((Intentos < Max_Intentos) and not (Verificar_Credenciales(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contraseña_Usuario))):
+            print("Inicio de sesión exitoso.")
+        else:
+            print("=================================================================================================")
+            print("|       HAS SUPERADO EL LÍMITE DE INTENTOS. ACCESO DENEGADO.                                    |")
+            print("=================================================================================================")
+            print(" ")
+            print(" ")
+            print(" ")
 
 
 
-Lista_Usuarios = []
-Lista_Contraseñas = []
+    if(Valor_Mini_Interfaz == 2):
+        print("=================================================================================================")
+        print("|                                         CREAR SESION                                          |")
+        print("=================================================================================================")
+        ##########################################################################################################
+        print("=================================================================================================")
+        Nombre_Usuario = str (input("INGRESAR SU NOMBRE DE USUARIO = "))
+        print("=================================================================================================")
 
 
-def Crear_Usuario()
-    
-    return
+        while not(Verificar_Existencia_Usuario(Lista_Usuarios,Nombre_Usuario)):
+            print("=================================================================================================")
+            print("|                                 INGRESAR NUEVAMENTE SU NOMBRE                                 |")
+            print("=================================================================================================")
 
-def Ingreso_Usuario():
-    Usuario = str (input("Ingresar el Nombre del Usuario: "))
-    Contraseña = int (input("Ingresar la Contraseña del Usuario: "))
-    #Busqueda del Usuario si Exite
-    if():
+            print("=================================================================================================")
+            Nombre_Usuario = str (input("INGRESAR SU NOMBRE DE USUARIO = "))
+            print("=================================================================================================")
+            ##########################################################################################################
+            print("=================================================================================================")
+            Contraseña_Usuario = int (input("INGRESAR SU CONTRASEÑA DE USUARIO = "))
+            print("=================================================================================================")
+            
+        Agregar_Usuario(Lista_Usuarios,Lista_Contraseñas,Nombre_Usuario,Contraseña_Usuario)
+            
+        Imprimir_Listas(Lista_Usuarios,Lista_Contraseñas)
         
-    return 
-
-Programa = int (input("Bienvenido, Para iniciar el programa ingrese el Valor =  1, Para Apagar el programa ingrese el valor = -1"))
-
-while(Programa != Fin):
-    print("Ingrese el Valor = 1 (Si usted ya tiene creada una cuenta).")
-    print("Ingrese el valor = 2 (Si usted quiere crearse una cuenta)")
-    Valor_Cuenta = int (input("INGRESE SU RESPUESTA")) 
-
-    while((Valor_Cuenta != 1) or (Valor_Cuenta != 2))
-        print("Ingresaste mal el valor de las opciones: ERROR INGRESE NUEVAMENTE EL VALOR")
-        Valor_Cuenta = int (input("INGRESE SU RESPUESTA")) 
-
-    if(Valor_Cuenta == 1):
-        Ingreso_Usuario(Lista_Usuarios,Lista_Contraseñas)
-    elif(Valor_Cuenta == 2):
-        Crear_Usuario(Lista_Usuarios,Lista_Contraseñas)
+    if(Valor_Mini_Interfaz == 3):
+        print("=================================================================================================")
+        print("|                                         IMPRIMIR LISTAS                                        |")
+        print("=================================================================================================")
+        ##########################################################################################################
+        print("=================================================================================================")
+        Imprimir_Listas(Lista_Usuarios,Lista_Contraseñas)
+        print("=================================================================================================")
+            
 
 
+    """
+    print("=================================================================================================")
+    print("|                          BIENVENIDO AL PROGRAMA DE CONTROL DE STOCKS                          |")
+    print("=================================================================================================")
+    print("=================================================================================================")
+    print("|                     SI USTED QUIERE INGRESAR A SU CUENTA, INGRESE EL VALOR 1                  |")
+    print("=================================================================================================")
+    print("=================================================================================================")
+    print("|                     SI USTED QUIERE CREAR A SU CUENTA, INGRESE EL VALOR 2                     |")
+    print("=================================================================================================")
+    print("=================================================================================================")
+    print("|                     SI USTED QUIERE VER LA LISTA DE CUENTAS, INGRESE EL VALOR 3               |")
+    print("=================================================================================================")
+    print("=================================================================================================")
+    print("|                     SI USTED QUIERE TERMINAR EL PROGRAMA, INGRESE EL VALOR -1                 |")
+    print("=================================================================================================")
+    ##########################################################################################################
+    """
+    print("=================================================================================================")
+    Valor_Mini_Interfaz = int (input("INGRESAR SU VALOR POR VAFOR = "))
+    print("=================================================================================================")
+        
 
-print("Hasta luego!!, (Usted apago el programa)")
+print("USTED A FINALIZADO EL PROGRAMA, HASTA LUEGOO")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
