@@ -95,20 +95,10 @@ def Agregar_Usuario(Lista_Usuarios,Lista_Contraseñas,Nombre_Usuario,Contraseña
 
 
 def Verificar_Credenciales(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contraseña_Usuario):
-    # Verificar si el usuario existe en la lista de usuarios
     if Nombre_Usuario in Lista_Usuarios:
-        # Obtener la posición del usuario en la lista
         indice = Lista_Usuarios.index(Nombre_Usuario)
-        
-        # Verificar si la contraseña en esa posición coincide
-        if Lista_Contraseñas[indice] == Contraseña_Usuario:
-            return True
-        else:
-            print("La contraseña es incorrecta.")
-            return False
-    else:
-        print("El nombre de usuario no existe.")
-        return False
+        return Lista_Contraseñas[indice] == Contraseña_Usuario
+    return False
 
 
 
@@ -150,39 +140,36 @@ while(Valor_Mini_Interfaz != Fin):
         print("=================================================================================================")
         print("|                                         INICIAR SESION                                        |")
         print("=================================================================================================")
-        ##########################################################################################################
-        print("=================================================================================================")
-        Nombre_Usuario = str (input("INGRESAR SU NOMBRE DE USUARIO = "))
-        print("=================================================================================================")
-        ##########################################################################################################
-        print("=================================================================================================")
-        Contraseña_Usuario = int (input("INGRESAR SU CONTRASEÑA DE USUARIO = "))
-        print("=================================================================================================")
 
         Intentos = 0
         Max_Intentos = 3
 
-        while((Intentos < Max_Intentos) and not (Verificar_Credenciales(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contraseña_Usuario))):
+        print("=================================================================================================")
+        Nombre_Usuario = str (input("INGRESAR SU NOMBRE DE USUARIO = "))
+        print("=================================================================================================")
+
+
+        print("=================================================================================================")
+        Contraseña_Usuario = int (input("INGRESAR SU CONTRASEÑA DE USUARIO = "))
+        print("=================================================================================================")
+
+
+        while Intentos < Max_Intentos and not Verificar_Credenciales(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contraseña_Usuario):
             Intentos = Intentos + 1
 
-            if(Intentos < Max_Intentos):
+            if Intentos < Max_Intentos:
                 print("=================================================================================================")
                 print("|                   INCORRECTO, INGRESE NUEVAMENTE SU NOMBRE Y CONTRASEÑA                       |")
                 print("=================================================================================================")
+                Nombre_Usuario = input("INGRESAR SU NOMBRE DE USUARIO = ")
+                Contraseña_Usuario = input("INGRESAR SU CONTRASEÑA DE USUARIO = ")
 
-            Nombre_Usuario = input("INGRESAR SU NOMBRE DE USUARIO = ")
-            Contraseña_Usuario = input("INGRESAR SU CONTRASEÑA DE USUARIO = ")
-
-        if((Intentos < Max_Intentos) and not (Verificar_Credenciales(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contraseña_Usuario))):
+        if Verificar_Credenciales(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contraseña_Usuario):
             print("Inicio de sesión exitoso.")
         else:
             print("=================================================================================================")
             print("|       HAS SUPERADO EL LÍMITE DE INTENTOS. ACCESO DENEGADO.                                    |")
             print("=================================================================================================")
-            print(" ")
-            print(" ")
-            print(" ")
-
 
 
     if(Valor_Mini_Interfaz == 2):
