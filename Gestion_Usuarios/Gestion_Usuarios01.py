@@ -171,7 +171,7 @@ def CREAR_SESSION():
     Agregar_Usuario(Lista_Usuarios,Lista_Contraseñas,Nombre_Usuario,Contraseña_Usuario)
     return
 
-def Menu_Interactivo():
+def Menu_Interactivo_GestionUsuario():
     print("=================================================================================================")
     print("|                          BIENVENIDO AL PROGRAMA DE CONTROL DE STOCKS                          |")
     print("=================================================================================================")
@@ -192,7 +192,7 @@ def Menu_Interactivo():
 ######################################################             PROGRAMA PRINCIPAL             #####################################################################################
 Fin = -1
 
-Menu_Interactivo()
+Menu_Interactivo_GestionUsuario()
 
 print("=================================================================================================")
 Valor_Mini_Interfaz = int (input("INGRESAR SU VALOR POR VAFOR = "))
@@ -210,7 +210,7 @@ while(Valor_Mini_Interfaz != Fin):
     if(Valor_Mini_Interfaz == 3):
         Imprimir_Listas(Lista_Usuarios, Lista_Contraseñas)  
 
-    Menu_Interactivo()
+    Menu_Interactivo_GestionUsuario()
     
     print("=================================================================================================")
     Valor_Mini_Interfaz = int (input("INGRESAR SU VALOR POR VAFOR = "))
