@@ -194,7 +194,7 @@ Fin = -1
 Menu_Interactivo_GestionUsuario()
 
 print("=================================================================================================")
-Valor_Mini_Interfaz = int (input("INGRESAR SU VALOR POR VAFOR = "))
+Valor_Mini_Interfaz = int (input("INGRESAR SU VALOR POR FAVOR = "))
 print("=================================================================================================")
 
 while(Valor_Mini_Interfaz != Fin):
@@ -212,7 +212,7 @@ while(Valor_Mini_Interfaz != Fin):
     Menu_Interactivo_GestionUsuario()
     
     print("=================================================================================================")
-    Valor_Mini_Interfaz = int (input("INGRESAR SU VALOR POR VAFOR = "))
+    Valor_Mini_Interfaz = int (input("INGRESAR SU VALOR POR FAVOR = "))
     print("=================================================================================================")
         
 
