@@ -1,5 +1,14 @@
-Lista_Usuarios = ["juan"]
-Lista_Contraseñas = [123]
+Fin = -1
+
+Lista_Usuarios = ["pepe"]
+Lista_Contraseñas = ["123"]
+
+# listas
+remeras = ["Remera A", "Remera B", "Remera C", "Remera D"]
+sremeras = [1, 22, 3, 4]
+pantalones = ["Pantalon A", "Pantalon B", "Pantalon C", "Pantalon D"]
+spantalones = [4, 2, 5, 7]
+
 
 def Verificar_Existencia_Usuario(Lista_Usuarios,Nombre_Usuario):
     if (Nombre_Usuario in Lista_Usuarios):
@@ -28,13 +37,6 @@ def Agregar_Usuario(Lista_Usuarios,Lista_Contraseñas,Nombre_Usuario,Contraseña
     Lista_Contraseñas.append(Contraseña_Usuario) 
     return Lista_Usuarios,Lista_Contraseñas
 
-
-def Verificar_Credenciales(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contraseña_Usuario):
-    if Nombre_Usuario in Lista_Usuarios:
-        indice = Lista_Usuarios.index(Nombre_Usuario)
-        return Lista_Contraseñas[indice] == Contraseña_Usuario
-    return False
-
 def Verificacion_Menu(Valor_Mini_Interfaz):
     while((Valor_Mini_Interfaz != 1) and (Valor_Mini_Interfaz != 2) and (Valor_Mini_Interfaz != 3) and (Valor_Mini_Interfaz != Fin)):
         print("=================================================================================================")
@@ -46,60 +48,66 @@ def Verificacion_Menu(Valor_Mini_Interfaz):
         print("=================================================================================================")
     return
 
-def INICIAR_SESION():
+def Buscar_Usuario(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contraseña_Usuario):
+    i = 0
+    while ((i < len(Lista_Usuarios)) and (Lista_Usuarios[i] != Nombre_Usuario)):
+        i = i + 1
+    if(i < len(Lista_Usuarios)):
+        Pos = i
+        if Lista_Contraseñas[Pos] == Contraseña_Usuario:
+            return True
+    return False
+
+def INICIAR_SESION(Lista_Usuarios,Lista_Contraseñas):
+    Intentos = 0
+    Max_Intentos = 3
     print("=================================================================================================")
     print("|                                         INICIAR SESION                                        |")
     print("=================================================================================================")
-    Intentos = 0
-    Max_Intentos = 3
 
     Inicio = int (input("Si quiere iniciar sesion ponga 1, si quiere salir ponga -1:  "))
     while(Inicio != Fin):
         while((Inicio != 1) and (Inicio != Fin)):
             print("Ingresaste mal las opciones a elegir")
             Inicio = int (input("Si quiere iniciar sesion ponga 1, si quiere salir ponga -1"))
+        
+        if Inicio == Fin:
+            print("Has decidido salir del programa.")
+            return False
 
-        print("=================================================================================================")
-        Nombre_Usuario = str (input("INGRESAR SU NOMBRE DE USUARIO = "))
-        print("=================================================================================================")
-        print("=================================================================================================")
-        Contraseña_Usuario = int (input("INGRESAR SU CONTRASEÑA DE USUARIO = "))
-        print("=================================================================================================")
-
-        while Intentos < Max_Intentos and not Verificar_Credenciales(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contraseña_Usuario):
-            Intentos = Intentos + 1
-            if Intentos < Max_Intentos:
-                print("=================================================================================================")
-                print("|                   INCORRECTO, INGRESE NUEVAMENTE SU NOMBRE Y CONTRASEÑA                       |")
-                print("=================================================================================================")
-                Nombre_Usuario = input("INGRESAR SU NOMBRE DE USUARIO = ")
-                Contraseña_Usuario = input("INGRESAR SU CONTRASEÑA DE USUARIO = ")
-        if Verificar_Credenciales(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contraseña_Usuario):
-            print("Inicio de sesión exitoso.")
-            return True
-        else:
+        while Intentos < Max_Intentos:
             print("=================================================================================================")
-            print("|       HAS SUPERADO EL LÍMITE DE INTENTOS. ACCESO DENEGADO.                                    |")
+            Nombre_Usuario = input("INGRESAR SU NOMBRE DE USUARIO: ")
             print("=================================================================================================")
-        return False
+            Contraseña_Usuario = input("INGRESAR SU CONTRASEÑA: ")
 
+            if Buscar_Usuario(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contraseña_Usuario):
+                print("Inicio de sesión exitoso.")
+                return True
+            else:
+                Intentos += 1
+                print(f"Intento fallido. Te quedan {Max_Intentos - Intentos} intentos.")
+
+        if Intentos >= Max_Intentos:
+            print("Demasiados intentos fallidos. Sesión bloqueada.")
+            return False
 
 def CREAR_SESSION():
     print("=================================================================================================")
     print("|                                         CREAR SESION                                          |")
     print("=================================================================================================")
     print("=================================================================================================")
-    Nombre_Usuario = str (input("INGRESAR SU NOMBRE DE USUARIO = "))
+    Nombre_Usuario = input("INGRESAR SU NOMBRE DE USUARIO = ")
     print("=================================================================================================")
     while not(Verificar_Existencia_Usuario(Lista_Usuarios,Nombre_Usuario)):
         print("=================================================================================================")
         print("|                                 INGRESAR NUEVAMENTE SU NOMBRE                                 |")
         print("=================================================================================================")
         print("=================================================================================================")
-        Nombre_Usuario = str (input("INGRESAR SU NOMBRE DE USUARIO = "))
+        Nombre_Usuario = input("INGRESAR SU NOMBRE DE USUARIO = ")
         print("=================================================================================================")
     print("=================================================================================================")
-    Contraseña_Usuario = int (input("INGRESAR SU CONTRASEÑA DE USUARIO = "))
+    Contraseña_Usuario = input("INGRESAR SU CONTRASEÑA DE USUARIO = ")
     print("=================================================================================================")
     Agregar_Usuario(Lista_Usuarios,Lista_Contraseñas,Nombre_Usuario,Contraseña_Usuario)
     return
@@ -123,29 +131,40 @@ def Menu_Interactivo_GestionUsuario():
     return
 
 def Menu_Interactivo_ControlStock():
-    print("=================================================================================================")
+    print("#################################################################################################")
     print("|                                      CONTROL DE STOCKS                                        |")
-    print("=================================================================================================")
-    print("=================================================================================================")
+    print("#################################################################################################")
+    print("#################################################################################################")
     print("|                             CREAR PRODUCTO, INGRESE EL VALOR 1                                |")
-    print("=================================================================================================")
-    print("=================================================================================================")
+    print("#################################################################################################")
+    print("#################################################################################################")
     print("|                             ELIMINAR PRODUCTO, INGRESE EL VALOR 2                             |")
-    print("=================================================================================================")
-    print("=================================================================================================")
+    print("#################################################################################################")
+    print("#################################################################################################")
     print("|                             ENTRADA DE STOCK, INGRESE EL VALOR 3                              |")
-    print("=================================================================================================")
-    print("=================================================================================================")
+    print("#################################################################################################")
+    print("#################################################################################################")
     print("|                             SALIDA DE STOCK, INGRESE EL VALOR 4                               |")
-    print("=================================================================================================")
-    print("=================================================================================================")
+    print("#################################################################################################")
+    print("#################################################################################################")
     print("|                             STOCK A IMPRIMIR, INGRESE EL VALOR 5                              |")
-    print("=================================================================================================")
-    print("=================================================================================================")
+    print("#################################################################################################")
+    print("#################################################################################################")
     print("|                     SI USTED QUIERE TERMINAR EL PROGRAMA, INGRESE EL VALOR -1                 |")
-    print("=================================================================================================")
+    print("#################################################################################################")
     return
 ################################## AGREGAR O ACTUALIZAR PRODUCTO  ##############################################
+# pnd se encarga de juntar ambas listas, se juntará los items en base a sus respectivas posiciones
+def combine_lists(list1, list2):
+    combined = []
+    for i in range(len(list1)):
+        combined.append((list1[i], list2[i]))
+    return combined
+
+# pnd se encarga de juntar ambas listas, se juntará los items en base a sus respectivas posiciones
+pnspan = combine_lists(pantalones, spantalones)
+pnsrem = combine_lists(remeras, sremeras)
+
 def chequear_si_exsiste_producto(producto, productos):
     for i in range(len(productos)):
         # Se recorre la lista de productos en la posición i
@@ -173,11 +192,11 @@ def agregar_producto(producto, productos, stocks, pns):
     # Se agrega el stock a la lista de stocks
     stocks.append([cantidad])
     # Se agrega el producto y su stock a la lista pns
-    pns.append(list(zip([producto], [cantidad])))
+    pns.append(combine_lists([producto], [cantidad]))
     # Se imprime un mensaje de que el producto ha sido agregado al sistema
     print(f"El producto {producto} ha sido agregado al sistema")
 
-# Se recorre la lista de productos
+# Hace todo lo que se pide en la opción 1
 def opcion_1(producto, productos, stocks, pns):
     if chequear_si_exsiste_producto(producto, productos):
         actualizar_stock(producto, cantidad, productos, stocks, pns)
@@ -192,18 +211,6 @@ def opcion_1(producto, productos, stocks, pns):
 
 
 ######################################################             PROGRAMA PRINCIPAL             #####################################################################################
-Fin = -1
-
-# listas
-remeras = ["Remera A", "Remera B", "Remera C", "Remera D"]
-sremeras = [1, 22, 3, 4]
-pantalones = ["Pantalon A", "Pantalon B", "Pantalon C", "Pantalon D"]
-spantalones = [4, 2, 5, 7]
-
-# pnd se encarga de juntar ambas listas, se juntará los items en base a sus respectivas posiciones
-pnsrem = list(zip(remeras, sremeras))
-pnspan = list(zip(pantalones, spantalones))
-
 Menu_Interactivo_GestionUsuario()
 print("=================================================================================================")
 Valor_Mini_Interfaz = int (input("INGRESAR SU VALOR POR FAVOR = "))
@@ -214,7 +221,7 @@ while(Valor_Mini_Interfaz != Fin):
 
 
     if(Valor_Mini_Interfaz == 1):   
-        while(INICIAR_SESION()):
+        while(INICIAR_SESION(Lista_Usuarios,Lista_Contraseñas)):
             Menu_Interactivo_ControlStock()
             Menu = int (input("Ingrese la Opcion elegida: "))
             while(Menu != Fin):
@@ -241,9 +248,7 @@ while(Valor_Mini_Interfaz != Fin):
                     # Se crea una lista con los productos y sus stocks
                     pns = [pnsrem, pnspan]
                     # Se crea una variable para saber si el producto ya existe
-                    existe = False
-                    # Se crea una variable para saber la posición del producto en la lista
-                    pos = 0
+                
                     opcion_1(producto, productos, stocks, pns)
                 
                 if(Menu == 2):
