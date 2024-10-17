@@ -59,7 +59,6 @@ Aca lo que vamos a programar es el interfaz de Gestion de Usuarios
 """
 
 Lista_Usuarios = ["juan"]
-
 Lista_Contraseñas = [123]
 
 def Verificar_Existencia_Usuario(Lista_Usuarios,Nombre_Usuario):

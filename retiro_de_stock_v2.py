@@ -1,7 +1,7 @@
 productos = ["remeras", "zapatillas", "buzos", "gorras", "pantalones"]
 cantidad = [30, 50, 40, 20, 10]
 stock_total = 150
-
+ 
 def seleccionar_producto():
     extraer = int(input("¿Qué producto desea extraer? 0-r , 1-z, 2-b , 3-g , 4-p (o -1 para salir): "))
     if extraer == -1:
