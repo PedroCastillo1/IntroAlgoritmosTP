@@ -1,7 +1,7 @@
 Fin = -1
 
-Lista_Usuarios = ["pepe"]
-Lista_Contraseñas = ["123"]
+Lista_Usuarios = ["Martin","luca","Pedro","Lucia","Lautaro"]
+Lista_Contraseñas = ["123","1234","12345","123456","1234567"]
 
 # listas
 remeras = ["Remera A", "Remera B", "Remera C", "Remera D"]
@@ -11,24 +11,28 @@ spantalones = [4, 2, 5, 7]
 
 
 def Verificar_Existencia_Usuario(Lista_Usuarios,Nombre_Usuario):
-    if (Nombre_Usuario in Lista_Usuarios):
+    i = 0
+    while((i < len(Lista_Usuarios)) and (Lista_Usuarios[i] != Nombre_Usuario)):
+        i = i + 1
+    if(i < len(Lista_Usuarios)):
         print("EL NOMBRE YA SE ENCUENTRA UTILIZANDOSE, POR FAVOR INTENTE CON OTRO NUEVO")
         return False
-    else:
-        print("EL NOMBRE SE ENCUENTA DISPONIBLE :) ")
-        return True
+    print("EL NOMBRE SE ENCUENTA DISPONIBLE :) ")
+    return True
     
 def Imprimir_Listas_Usuarios(Lista_Usuarios, Lista_Contraseñas):
     print("=================================================================================================")
     print("|                                         IMPRIMIR LISTAS                                        |")
     print("=================================================================================================")
-    print("Lista de Usuarios Registrados:")
-    for usuario in Lista_Usuarios:
-        print(usuario)
+    print("Lista de Usuarios Registrados:", end=" ")
+    for i in range(len(Lista_Usuarios)):
+        print(Lista_Usuarios[i], end=" ")
+    print() 
     print("---------------------------------------")
-    print("Lista de Contraseñas Registradas:")
-    for contraseña in Lista_Contraseñas:
-        print(contraseña)
+    print("Lista de Contraseñas Registradas:", end=" ")
+    for i in range(len(Lista_Contraseñas)):
+        print('*' * len(Lista_Contraseñas[i]), end=" ")
+    print()
     print("=================================================================================================")
     return
 
@@ -75,20 +79,20 @@ def INICIAR_SESION(Lista_Usuarios,Lista_Contraseñas):
             print("Has decidido salir del programa.")
             return False
 
-        while Intentos < Max_Intentos:
+        while(Intentos < Max_Intentos):
             print("=================================================================================================")
             Nombre_Usuario = input("INGRESAR SU NOMBRE DE USUARIO: ")
             print("=================================================================================================")
             Contraseña_Usuario = input("INGRESAR SU CONTRASEÑA: ")
 
-            if Buscar_Usuario(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contraseña_Usuario):
+            if(Buscar_Usuario(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contraseña_Usuario)):
                 print("Inicio de sesión exitoso.")
                 return True
             else:
                 Intentos += 1
                 print(f"Intento fallido. Te quedan {Max_Intentos - Intentos} intentos.")
 
-        if Intentos >= Max_Intentos:
+        if(Intentos >= Max_Intentos):
             print("Demasiados intentos fallidos. Sesión bloqueada.")
             return False
 
