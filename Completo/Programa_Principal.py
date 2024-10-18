@@ -52,6 +52,17 @@ def Verificacion_Menu(Valor_Mini_Interfaz):
         print("=================================================================================================")
     return
 
+def Verificacion_Menu_Stocks(Menu):
+    while((Menu != 1) and (Menu != 2) and (Menu != 3) and (Menu != 4) and (Menu != 5) and (Menu != Fin)):
+        print("=================================================================================================")
+        print("|                        INGRESASTE MAL EL VALOR DE LAS OPCIONES                                |")
+        print("|                             INTENTAR NUEVAMENTE POR FAVOR                                     |")
+        print("=================================================================================================")
+        Menu = int (input("Ingrese la Opcion elegida: "))
+    return
+
+
+
 def Buscar_Usuario(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contraseña_Usuario):
     i = 0
     while ((i < len(Lista_Usuarios)) and (Lista_Usuarios[i] != Nombre_Usuario)):
@@ -229,10 +240,7 @@ while(Valor_Mini_Interfaz != Fin):
             Menu_Interactivo_ControlStock()
             Menu = int (input("Ingrese la Opcion elegida: "))
             while(Menu != Fin):
-                while((Menu != 1) and (Menu != 2) and (Menu != 3) and (Menu != 4) and (Menu != 5) and (Menu != Fin)):
-                    print("Ingresaste mal el valor de las Opciones del Menu: ")
-                    Menu = int (input("Ingrese la Opcion elegida: "))
-
+                Verificacion_Menu_Stocks(Menu)
                 """
                 #######################################################################################
                 ACA  VAN A ESTAR LAS OPCIONES DEL PROGRAMA (AGREGAR,ELIMINAR,ENTRADA,SALIDA,TOTAL_STOCK)
