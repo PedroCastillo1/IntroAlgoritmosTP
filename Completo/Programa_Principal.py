@@ -9,7 +9,7 @@ sremeras = [1, 22, 3, 4]
 pantalones = ["Pantalon A", "Pantalon B", "Pantalon C", "Pantalon D"]
 spantalones = [4, 2, 5, 7]
 
-
+########################################## FUNCIONES DE USUARIOS #####################################################
 def Verificar_Existencia_Usuario(Lista_Usuarios,Nombre_Usuario):
     i = 0
     while((i < len(Lista_Usuarios)) and (Lista_Usuarios[i] != Nombre_Usuario)):
@@ -144,7 +144,9 @@ def Menu_Interactivo_GestionUsuario():
     print("|                     SI USTED QUIERE TERMINAR EL PROGRAMA, INGRESE EL VALOR -1                 |")
     print("=================================================================================================")
     return
+########################################## FUNCIONES DE USUARIOS #####################################################
 
+########################################## FUNCION DE MENU INTERACTIVO ###############################################
 def Menu_Interactivo_ControlStock():
     print("#################################################################################################")
     print("|                                      CONTROL DE STOCKS                                        |")
@@ -168,6 +170,8 @@ def Menu_Interactivo_ControlStock():
     print("|                     SI USTED QUIERE TERMINAR EL PROGRAMA, INGRESE EL VALOR -1                 |")
     print("#################################################################################################")
     return
+########################################## FUNCION DE MENU INTERACTIVO ###############################################
+
 ################################## AGREGAR O ACTUALIZAR PRODUCTO  ##############################################
 # pnd se encarga de juntar ambas listas, se juntará los items en base a sus respectivas posiciones
 def combine_lists(list1, list2):
