@@ -8,6 +8,12 @@ productos = ["remeras", "zapatillas", "buzos", "gorras", "pantalones"]
 cantidad = [30, 50, 40, 20, 10]
 stock_total = 150
 
+#Listas
+remeras = ["Remera A", "Remera B", "Remera C", "Remera D"]
+sremeras = [1, 22, 3, 4]
+pantalones = ["Pantalon A", "Pantalon B", "Pantalon C", "Pantalon D"]
+spantalones = [4, 2, 5, 7]
+
 ########################################## FUNCIONES DE USUARIOS #####################################################
 def Verificar_Existencia_Usuario(Lista_Usuarios,Nombre_Usuario):
     i = 0
@@ -59,8 +65,6 @@ def Verificacion_Menu_Stocks(Menu):
         print("=================================================================================================")
         Menu = int (input("Ingrese la Opcion elegida: "))
     return
-
-
 
 def Buscar_Usuario(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contraseña_Usuario):
     i = 0
