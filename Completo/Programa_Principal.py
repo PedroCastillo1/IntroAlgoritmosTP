@@ -218,10 +218,11 @@ def chequear_si_exsiste_producto(producto, productos):
             return True
     return False
 
-def actualizar_stock(producto, cantidad, productos, stocks):
+def actualizar_stock(producto, cantidad, productos, stocks, stocksTotales):
     for i in range(len(productos)):
         if producto == productos[i]:
             stocks[i] += cantidad
+            stocksTotales += cantidad
             print("El stock del producto: "+ productos[i] + " ha sido actualizado")
 
 def actualizar_precio(producto, precio, productos, precios):
@@ -402,7 +403,7 @@ while(Valor_Mini_Interfaz != Fin):
                             cantidad = int(input("Ingrese la cantidad de unidades ingresadas: "))
                             print("=================================================================================================")
                         
-                        actualizar_stock(producto, cantidad, productos, stocks)
+                        actualizar_stock(producto, cantidad, productos, stocks, stock_total)
                         print("=================================================================================================")
                         print("|                             STOCK ACTUALIZADO CON EXITO                                       |")
                         print("=================================================================================================")
