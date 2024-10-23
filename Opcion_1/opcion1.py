@@ -7,72 +7,55 @@ Si el producto ya existe, solo se actualizará el número de unidades ingresadas
 El sistema recalculará el stock total como la diferencia entre las entradas y las salidas de cada producto."""
 
 # listas
-remeras = ["Remera A", "Remera B", "Remera C", "Remera D"]
-sremeras = [1, 22, 3, 4]
-pantalones = ["Pantalon A", "Pantalon B", "Pantalon C", "Pantalon D"]
-spantalones = [4, 2, 5, 7]
+productos = ["Remeras","Pantalon","Buzos","Gorras","Zapatillas"]
+stocks = [10,20,15,23,25]
+precios = [10,22,32,14,99]
 
-# pnd se encarga de juntar ambas listas, se juntará los items en base a sus respectivas posiciones
-def combine_lists(list1, list2):
-    combined = []
-    for i in range(len(list1)):
-        combined.append((list1[i], list2[i]))
-    return combined
-
-pnspan = combine_lists(pantalones, spantalones)
-pnsrem = combine_lists(remeras, sremeras)
 
 # Se pide al usuario que ingrese el producto, su precio y la cantidad de unidades ingresadas
 producto = input("Ingrese el producto: ")
 cantidad = int(input("Ingrese la cantidad de unidades ingresadas: "))
-# Se crea una lista con los datos ingresados
-nuevo_producto = [producto, cantidad]
+precio = int(input("Ingrese el precio del producto: "))
 
-# Se crea una lista con los productos existentes
-productos = [remeras, pantalones]
-# Se crea una lista con los stocks existentes
-stocks = [sremeras, spantalones]
-# Se crea una lista con los productos y sus stocks
-pns = [pnsrem, pnspan]
 
 def chequear_si_exsiste_producto(producto, productos):
     for i in range(len(productos)):
-        # Se recorre la lista de productos en la posición i
-        for j in range(len(productos[i])):
-            # Si el producto ingresado es igual a un producto existente
-            if producto == productos[i][j]:
-                return True
+        if producto == productos[i]:
+            return True
+    return False
 
-def actualizar_stock(producto, cantidad, productos, stocks, pns):
+def actualizar_stock(producto, cantidad, productos, stocks):
     for i in range(len(productos)):
-        # Se recorre la lista de productos en la posición i
-        for j in range(len(productos[i])):
-            # Si el producto ingresado es igual a un producto existente
-            if producto == productos[i][j]:
-                # Se suma la cantidad ingresada al stock existente
-                stocks[i][j] += cantidad
-                # Se actualiza la lista pns
-                pns[i][j] = (producto, stocks[i][j])
-                # Se imprime un mensaje de que el stock ha sido actualizado
-                print(f"El stock de {producto} ha sido actualizado a {stocks[i][j]}")                
+        if producto == productos[i]:
+            stocks[i] += cantidad
+            print("El stock del producto: "+ productos[i] + " ha sido actualizado")
 
-def agregar_producto(producto, productos, stocks, pns):
+def actualizar_precio(producto, precio, productos, precios):
+    for i in range(len(productos)):
+        if producto == productos[i]:
+            precios[i] = precio
+            print("El precio del producto: "+ productos[i] + " ha sido actualizado")
+
+def agregar_producto(producto, productos, stocks, precios, precio, cantidad):
     # Se agrega el producto a la lista de productos
-    productos.append([producto])
+    productos.append(producto)
     # Se agrega el stock a la lista de stocks
-    stocks.append([cantidad])
-    # Se agrega el producto y su stock a la lista pns
-    pns.append(combine_lists([producto], [cantidad]))
-    # Se imprime un mensaje de que el producto ha sido agregado al sistema
+    stocks.append(cantidad)
+    # Se agrega el precio a la lista de precios
+    precios.append(precio)
+
     print(f"El producto {producto} ha sido agregado al sistema")
 
 
 # Hace todo lo que se pide en la opción 1
-def opcion_1(producto, productos, stocks, pns):
+def opcion_1(producto, productos, stocks, precios, precio, cantidad):
     if chequear_si_exsiste_producto(producto, productos):
-        actualizar_stock(producto, cantidad, productos, stocks, pns)
+        actualizar_stock(producto, cantidad, productos, stocks)
+        actualizar_precio(producto, precio, productos, precios)
     else:   
-        agregar_producto(producto, productos, stocks, pns)    
-    print(pns)
+        agregar_producto(producto, productos, stocks, precios, precio, cantidad)   
+    print(productos)
+    print(stocks)
+    print(precios)
     
-opcion_1(producto, productos, stocks, pns)
+opcion_1(producto, productos, stocks, precios, precio, cantidad)
