@@ -28,17 +28,11 @@ Cant_Stock = [] -------> (Ej: Cant_Stock = [20,10,30,15,5])
 
 """
 
-
-
-# listas
-productos = ["remeras", "zapatillas", "buzos", "gorras", "pantalones"]
-cantidad = [30, 50, 40, 20, 10]
-stock_total = 150
-
-#Listas opcion 1
+#Listas 
 productos = ["Remeras","Pantalon","Buzos","Gorras","Zapatillas"]
 stocks = [10,20,15,23,25]
 precios = [10,22,32,14,99]
+stock_total = 150
 
 ############################################ INTERFACES DEL PROGRAMA ##################################################
 def Menu_Interactivo_GestionUsuario():
@@ -270,9 +264,9 @@ def seleccionar_cantidad(producto):
     if cantidad_a_extraer == -1:
         print("Operación cancelada.")
         return -1 
-    while cantidad_a_extraer > cantidad[producto] or cantidad_a_extraer < 0:
-        if cantidad_a_extraer > cantidad[producto]:
-            print(f"Stock insuficiente. Solo hay {cantidad[producto]} unidades de {productos[producto]}.")
+    while cantidad_a_extraer > stocks[producto] or cantidad_a_extraer < 0:
+        if cantidad_a_extraer > stocks[producto]:
+            print(f"Stock insuficiente. Solo hay {stocks[producto]} unidades de {productos[producto]}.")
         elif cantidad_a_extraer < 0:
             print("Cantidad negativa no permitida.")
         cantidad_a_extraer = int(input(f"Cantidad de {productos[producto]} a extraer (o -1 para cancelar): "))
@@ -281,7 +275,7 @@ def seleccionar_cantidad(producto):
 def mostrar_stock():
     print(f"El stock final quedó en {stock_total}.")
     for i, producto in enumerate(productos):
-        print(f"La cantidad de {producto} es de {cantidad[i]}.")
+        print(f"La cantidad de {producto} es de {stocks[i]}.")
     return
 
 
@@ -468,10 +462,9 @@ while(Valor_Mini_Interfaz != Fin):
                                         print("Operación cancelada.")
                                         pregunta = int(input("¿Quiere retirar otro producto? Pulse 1 para continuar y -1 para finalizar: "))
                                     else:
-                                    
-                                        cantidad[producto_seleccionado] -= cantidad_a_extraer
+                                        stocks[producto_seleccionado] -= cantidad_a_extraer
                                         stock_total -= cantidad_a_extraer
-                                        print(f"Operación confirmada. Quedan {cantidad[producto_seleccionado]} {productos[producto_seleccionado]}.")
+                                        print(f"Operación confirmada. Quedan {stocks[producto_seleccionado]} {productos[producto_seleccionado]}.")
                                         pregunta = int(input("¿Quiere retirar otro producto? Pulse 1 para continuar y -1 para finalizar: "))
 
                     mostrar_stock()
