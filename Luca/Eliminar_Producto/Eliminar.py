@@ -14,21 +14,26 @@ Paso_5:
     Retornar al menu del Control de Stock
 """
 
-# listas
-Productos = ["Remera", "Pantalon", "Buzo", "zapatilla"]
-Precios = [10.99, 22, 30, 40]
-Cant_Stock = [10, 20, 30, 40]
+Productos = ["manzana", "banana", "pera", "naranja"]
+Precios = [1.0, 0.5, 1.2, 0.8] 
+Stocks = [100, 150, 80, 120] 
 
+def Borrar_Producto(productos, precios, stock, nombre_producto):
+    for i in range(len(productos)):
+        if (productos[i] == nombre_producto):
+            print(f"El producto '{nombre_producto}' fue encontrado y se procederá a eliminarlo.")
+            productos.pop(i)
+            precios.pop(i)
+            stock.pop(i)
+            print(f"Lista de productos actualizada: {productos}")
+            print(f"Lista de precios actualizada: {precios}")
+            print(f"Lista de stock actualizada: {stock}")
+            return
+        
+    print(f"El producto '{nombre_producto}' no fue encontrado en la lista.")
+    return
 
-def Buscar_Producto(Productos,Producto_Eliminar):
-    i = 0
-    while ((i < len(Productos)) and (Productos[i] != Producto_Eliminar)):
-        i = i + 1
-    if(i < len(Productos)):
-        return True
-    return False
-
-def Imprimir_Listas_Stock(Productos, Precios, Cant_Stock):
+def Imprimir_Listas_Stock(Productos, Precios, Stock):
     print("=================================================================================================")
     print("|                                         IMPRIMIR LISTAS                                        |")
     print("=================================================================================================")
@@ -44,20 +49,19 @@ def Imprimir_Listas_Stock(Productos, Precios, Cant_Stock):
     print("=================================================================================================")
     print("---------------------------------------")
     print("Lista de Cantidad Stock Registradas:", end=" ")
-    for i in range(len(Cant_Stock)):
-        print(Cant_Stock[i], end=" ")
+    for i in range(len(Stock)):
+        print(Stock[i], end=" ")
     print()
     print("=================================================================================================")
     return
 
-Imprimir_Listas_Stock(Productos, Precios, Cant_Stock)
 
 
 ###################################### Programa Principal #######################################################
 Fin = -1
-Verificar_Eliminar = int (input("Esta seguro de querer eliminar un Prducto 1= Si , -1 = No"))
+Verificar_Eliminar = int (input("Quiere eliminar un Producto 1= Si , -1 = No: "))
 while(Verificar_Eliminar != Fin):
-    Producto_Eliminar = (input("Ingresar el Nombre del Producto a querer ELIMINAR"))
-    if(Buscar_Producto(Productos,Producto_Eliminar)):
-        print(f"Se ha encontrado dicho Producto, Vamos a ELIMNAR {Producto_Eliminar}")
-
+    Producto_Eliminar = (input("Ingrese el nombre del producto que desea eliminar: "))
+    Borrar_Producto(Productos, Precios, Stocks, Producto_Eliminar)
+    Verificar_Eliminar = int (input("Quiere eliminar un Producto 1= Si , -1 = No: "))
+Imprimir_Listas_Stock(Productos, Precios, Stocks)

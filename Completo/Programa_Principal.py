@@ -3,36 +3,11 @@ Fin = -1
 Lista_Usuarios = ["Martin","luca","Pedro","Lucia","Lautaro"]
 Lista_Contraseñas = ["123","1234","2210","123456","1234567"]
 
-"""
-IDEA PARA LOS NOMBRES DE LAS LISTAS!!!
-
-Esto a modo ejemplo para que usen en sus partes los mismos nombres en las listas
-para que luego en este programa principal se pueda unificar en este mismo archivo
-
-Productos = [] -------> (Ej: Productos = [Remeras,Pantalones,Buzos,Camperas,zapatillas])
-Precio = []  -------> (Ej: Precio = [100, 9.99 , 23.50 , 200 , 450])
-Entrada = Involucran estas listas = Productos - Cant_Stock.
-Salida = Involucran estas listas = Productos - Cant_Stock.
-Cant_Stock = [] -------> (Ej: Cant_Stock = [20,10,30,15,5]) 
-
-"""
-"""
-!!!!    Para poder aplicar esa comunicacion entre las listas creen funciones donde por medio de la 
-posicion de cada elemento es compartida por las posiciones de las demas listas    !!!
-
-Productos = [] -------> (Ej: Productos = [Remeras,Pantalones,Buzos,Camperas,zapatillas])
-Precio = []  -------> (Ej: Precio = [100, 9.99 , 23.50 , 200 , 450])
-Entrada = Involucran estas listas = Productos - Cant_Stock.
-Salida = Involucran estas listas = Productos - Cant_Stock.
-Cant_Stock = [] -------> (Ej: Cant_Stock = [20,10,30,15,5]) 
-
-"""
-
 #Listas 
-productos = ["Remeras","Pantalon","Buzos","Gorras","Zapatillas"]
-stocks = [10,20,15,23,25]
-precios = [10,22,32,14,99]
-stock_total = 150
+Productos = ["Remeras","Pantalon","Buzos","Gorras","Zapatillas"]
+Stocks = [10,20,15,23,25]
+Precios = [10,22,32,14,99]
+Stock_total = 93
 
 ############################################ INTERFACES DEL PROGRAMA ##################################################
 def Menu_Interactivo_GestionUsuario():
@@ -149,11 +124,7 @@ def Imprimir_Listas_Usuarios(Lista_Usuarios, Lista_Contraseñas):
     print()
     print("=================================================================================================")
     return
-
 ################################### FUNCIONES DE LAS OPCIONES DEL MENU DE USUARIOS ####################################
-
-
-
 
 ########################################## FUNCIONES DE USUARIOS #####################################################
 def Verificar_Existencia_Usuario(Lista_Usuarios,Nombre_Usuario):
@@ -200,12 +171,199 @@ def Buscar_Usuario(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contrase�
         if Lista_Contraseñas[Pos] == Contraseña_Usuario:
             return True
     return False
+########################################## FUNCIONES DE USUARIOS ###############################################
 
-########################################## FUNCIONES DE USUARIOS #####################################################
+################################### FUNCIONES DE LAS OPCIONES DEL CONTROL DE STOCK ####################################
+#================================================ OPCION 1 CREAR_PRODUCTO =============================================
+def CREAR_PRODUCTO():
+    print("=================================================================================================")
+    print("|                                    AGREGAR PRODUCTO                                           |")
+    print("=================================================================================================")
+    print("=================================================================================================")
+    producto = input("Ingrese el producto: ")
+    print("=================================================================================================")
+    while chequear_si_exsiste_producto(producto, Productos):
+        print("=================================================================================================")
+        print("|                       EL PRODUCTO YA EXISTE, INGRESE UNO NUEVO                                |")
+        print("=================================================================================================")
+        producto = input("Ingrese el producto: ")
+        print("=================================================================================================")
 
-################################## AGREGAR O ACTUALIZAR PRODUCTO  ##############################################
+    print("=================================================================================================")    
+    cantidad = int(input("Ingrese la cantidad de unidades ingresadas: "))
+    print("=================================================================================================")
+    while cantidad <= 0:
+        print("=================================================================================================")
+        print("|                      CANTIDAD NO VALIDA, INGRESE UNA CANTIDAD MAYOR A 0                       |")
+        print("=================================================================================================")
+        cantidad = int(input("Ingrese la cantidad de unidades ingresadas: "))
+        print("=================================================================================================")
 
+    print("=================================================================================================")
+    precio = int(input("Ingrese el precio del producto: "))
+    print("=================================================================================================")
+    while precio < 0:
+        print("=================================================================================================")
+        print("|                    PRECIO NO VALIDO, INGRESE UN PRECIO MAYOR O IGUAL A 0                      |")
+        print("=================================================================================================")
+        precio = int(input("Ingrese el precio del producto: "))
+        print("=================================================================================================")
+                    
+    agregar_producto(producto, Productos, Stocks, Precios, precio, cantidad)
+                    
+    print("=================================================================================================")
+    print("|                         EL PRODUCTO HA SIDO AGREGADO AL SISTEMA                               |")
+    print("=================================================================================================")
+    return
+#================================================ OPCION 2 ELIMINAR_PRODCUTO =============================================
+def ELIMINAR_PRODUCTO():
+    print("=================================================================================================")
+    print("|                                     ELIMINAR PRODUCTOS                                        |")
+    print("=================================================================================================")
+    print("=================================================================================================")
+    Verificar_Eliminar = int (input("Quiere eliminar un Producto 1= Si , -1 = No: "))
+    print("=================================================================================================")
+    while(Verificar_Eliminar != Fin):
+        print("=================================================================================================")
+        Producto_Eliminar = (input("Ingrese el nombre del producto que desea eliminar: "))
+        print("=================================================================================================")
+        ELIMINAR_PRODUCTO(Productos, Precios, Stocks, Producto_Eliminar)
+        print("=================================================================================================")
+        Verificar_Eliminar = int (input("Quiere eliminar un Producto 1= Si , -1 = No: "))
+        print("=================================================================================================")
+    IMPRIMIR_STOCK(Productos, Precios, Stocks)
+    return
+#================================================ OPCION 3 ACTUALIZAR_PRODCUTO =============================================
+def ACTUALIZAR_PRODUCTO():
+    print("=================================================================================================")
+    print("|                                     ACTUALIZAR PRODUCTOS                                      |")
+    print("=================================================================================================")
 
+    print("=================================================================================================")
+    print("|                                     1- ACTUALIZAR STOCK                                       |")
+    print("=================================================================================================")
+    print("=================================================================================================")
+    print("|                                     2- ACTUALIZAR PRECIO                                      |")
+    print("=================================================================================================")
+    opcion = int(input("Ingrese la opción deseada: "))
+    print("=================================================================================================")
+
+    while opcion != 1 and opcion != 2:
+        print("=================================================================================================")
+        print("|                      OPCION NO VALIDA, INGRESE UNA OPCION VALIDA                              |")
+        print("=================================================================================================")
+        opcion = int(input("Ingrese la opción deseada: "))
+        print("=================================================================================================")
+    if (opcion == 1):
+        print("=================================================================================================")
+        print("|                                   ACTUALIZAR STOCK                                            |")
+        print("=================================================================================================")
+        producto = input("Ingrese el producto a actualizar stock: ")
+        print("=================================================================================================")
+        while not chequear_si_exsiste_producto(producto, Productos):
+            print("=================================================================================================")
+            print("|                  EL PRODUCTO NO EXISTE, INGRESE UN PRODUCTO VALIDO                            |")
+            print("=================================================================================================")
+            producto = input("Ingrese el producto a actualizar stock: ")
+            print("=================================================================================================")
+                            
+        print("=================================================================================================")    
+        cantidad = int(input("Ingrese la cantidad de unidades ingresadas: "))
+        print("=================================================================================================")
+        while cantidad <= 0:
+            print("=================================================================================================")
+            print("|                  CANTIDAD NO VALIDA, INGRESE UNA CANTIDAD MAYOR A 0                           |")
+            print("=================================================================================================")
+            cantidad = int(input("Ingrese la cantidad de unidades ingresadas: "))
+            print("=================================================================================================")
+                        
+        actualizar_stock(producto, cantidad, Productos, Stocks, Stock_total)
+        print("=================================================================================================")
+        print("|                             STOCK ACTUALIZADO CON EXITO                                       |")
+        print("=================================================================================================")
+
+    if (opcion == 2):
+        print("=================================================================================================")
+        print("|                                   ACTUALIZAR PRECIO                                           |")
+        print("=================================================================================================")
+        producto = input("Ingrese el producto a actualizar precio: ")
+        print("=================================================================================================")
+        while not chequear_si_exsiste_producto(producto, Productos):
+            print("=================================================================================================")
+            print("|                     EL PRODUCTO NO EXISTE, INGRESE UN PRODUCTO VALIDO                         |")
+            print("=================================================================================================")
+            producto = input("Ingrese el producto a actualizar precio: ")
+            print("=================================================================================================")
+
+        print("=================================================================================================")
+        precio = int(input("Ingrese el precio del producto: "))
+        print("=================================================================================================")
+        while precio < 0:
+            print("=================================================================================================")
+            print("|                     PRECIO NO VALIDO, INGRESE UN PRECIO MAYOR O IGUAL A 0                     |")
+            print("=================================================================================================")
+            precio = int(input("Ingrese el precio del producto: "))
+            print("=================================================================================================")
+                        
+        actualizar_precio(producto, precio, Productos, Precios)
+        print("=================================================================================================")
+        print("|                                  PRECIO ACTUALIZADO CON EXITO                                 |")
+        print("=================================================================================================")
+    return
+#================================================ OPCION 4 SALIDA_STOCK =============================================
+def SALIDA_STOCK():
+    pregunta = int(input("¿Quiere retirar un producto? Pulse 1 para iniciar y -1 para finalizar: "))
+    while pregunta != -1:
+        if pregunta != 1:
+            print("Opción no válida.")
+            pregunta = int(input("¿Quiere retirar un producto? Pulse 1 para iniciar y -1 para finalizar: "))
+        else:
+            producto_seleccionado = seleccionar_producto()
+            if producto_seleccionado == -1:
+                pregunta = -1  
+            else:
+                cantidad_a_extraer = seleccionar_cantidad(producto_seleccionado)
+                if cantidad_a_extraer == -1:
+                    pregunta = int(input("¿Quiere retirar otro producto? Pulse 1 para continuar y -1 para finalizar: "))
+                else:
+                    seguro = int(input(f"¿Está seguro de retirar {cantidad_a_extraer} {Productos[producto_seleccionado]}? 1-Sí, 2-No: "))
+                    if seguro == 2:
+                        print("Operación cancelada.")
+                        pregunta = int(input("¿Quiere retirar otro producto? Pulse 1 para continuar y -1 para finalizar: "))
+                    else:
+                        Stocks[producto_seleccionado] -= cantidad_a_extraer
+                        stock_total -= cantidad_a_extraer
+                        print(f"Operación confirmada. Quedan {Stocks[producto_seleccionado]} {Productos[producto_seleccionado]}.")
+                        pregunta = int(input("¿Quiere retirar otro producto? Pulse 1 para continuar y -1 para finalizar: "))
+    mostrar_stock()
+    return
+#================================================ OPCION 5 STOCK A IMPRIMIR =============================================
+def IMPRIMIR_STOCK(Productos, Precios, Stock):
+    print("=================================================================================================")
+    print("|                                         IMPRIMIR LISTAS                                        |")
+    print("=================================================================================================")
+    print("Lista de Productos Registrados:", end=" ")
+    for i in range(len(Productos)):
+        print(Productos[i], end=" ")
+    print() 
+    print("---------------------------------------")
+    print("Lista de Precios Registradas:", end=" ")
+    for i in range(len(Precios)):
+        print(Precios[i], end=" ")
+    print()
+    print("=================================================================================================")
+    print("---------------------------------------")
+    print("Lista de Cantidad Stock Registradas:", end=" ")
+    for i in range(len(Stock)):
+        print(Stock[i], end=" ")
+    print()
+    print("=================================================================================================")
+    return
+
+################################### FUNCIONES DE LAS OPCIONES DEL CONTROL DE STOCK ####################################
+
+########################################## FUNCIONES DE CONTROL DE STOCK #####################################################
+################################## AGREGAR Y ACTUALIZAR PRODUCTO  ##############################################
 def chequear_si_exsiste_producto(producto, productos):
     for i in range(len(productos)):
         if producto == productos[i]:
@@ -234,21 +392,25 @@ def agregar_producto(producto, productos, stocks, precios, precio, cantidad):
     precios.append(precio)
 
     print(f"El producto {producto} ha sido agregado al sistema")
-
-# Hace todo lo que se pide en la opción 1
-def opcion_1(producto, productos, stocks, precios, precio, cantidad):
-    if chequear_si_exsiste_producto(producto, productos):
-        actualizar_stock(producto, cantidad, productos, stocks)
-        actualizar_precio(producto, precio, productos, precios)
-    else:   
-        agregar_producto(producto, productos, stocks, precios, precio, cantidad)   
-    print(productos)
-    print(stocks)
-    print(precios)
 ################################## AGREGAR O ACTUALIZAR PRODUCTO  ##############################################
 
-
-################################## salida de productos  ##############################################
+######################################## ELIMINAR PRODUCTOS ####################################################
+def Borrar_Producto(productos, precios, stock, nombre_producto):
+    for i in range(len(productos)):
+        if (productos[i] == nombre_producto):
+            print(f"El producto '{nombre_producto}' fue encontrado y se procederá a eliminarlo.")
+            productos.pop(i)
+            precios.pop(i)
+            stock.pop(i)
+            print(f"Lista de productos actualizada: {productos}")
+            print(f"Lista de precios actualizada: {precios}")
+            print(f"Lista de stock actualizada: {stock}")
+            return
+    print("=================================================================================================")
+    print(f"                  El producto '{nombre_producto}' no fue encontrado en la lista.                ")
+    print("=================================================================================================")    
+    return
+######################################## SALIDA DE PRODUCTOS  ##################################################
 def seleccionar_producto():
     extraer = int(input("¿Qué producto desea extraer? 0-r , 1-z, 2-b , 3-g , 4-p (o -1 para salir): "))
     if extraer == -1:
@@ -261,29 +423,26 @@ def seleccionar_producto():
 
 
 def seleccionar_cantidad(producto):
-    cantidad_a_extraer = int(input(f"Cantidad de {productos[producto]} a extraer (o -1 para cancelar): "))
+    cantidad_a_extraer = int(input(f"Cantidad de {Productos[producto]} a extraer (o -1 para cancelar): "))
     if cantidad_a_extraer == -1:
         print("Operación cancelada.")
         return -1 
-    while cantidad_a_extraer > stocks[producto] or cantidad_a_extraer < 0:
-        if cantidad_a_extraer > stocks[producto]:
-            print(f"Stock insuficiente. Solo hay {stocks[producto]} unidades de {productos[producto]}.")
+    while cantidad_a_extraer > Stocks[producto] or cantidad_a_extraer < 0:
+        if cantidad_a_extraer > Stocks[producto]:
+            print(f"Stock insuficiente. Solo hay {Stocks[producto]} unidades de {Productos[producto]}.")
         elif cantidad_a_extraer < 0:
             print("Cantidad negativa no permitida.")
-        cantidad_a_extraer = int(input(f"Cantidad de {productos[producto]} a extraer (o -1 para cancelar): "))
+        cantidad_a_extraer = int(input(f"Cantidad de {Productos[producto]} a extraer (o -1 para cancelar): "))
     return cantidad_a_extraer
 
 def mostrar_stock():
-    print(f"El stock final quedó en {stock_total}.")
-    for i, producto in enumerate(productos):
-        print(f"La cantidad de {producto} es de {stocks[i]}.")
+    print(f"El stock final quedó en {Stock_total}.")
+    for i, producto in enumerate(Productos):
+        print(f"La cantidad de {producto} es de {Stocks[i]}.")
     return
+################################## SALIDA DE PRODUCTOS  ########################################################
 
-
-################################## salida de productos  ##############################################
-
-
-######################################################             PROGRAMA PRINCIPAL             #####################################################################################
+###################################   PROGRAMA PRINCIPAL     ###################################################
 Menu_Interactivo_GestionUsuario()
 print("=================================================================================================")
 Valor_Mini_Interfaz = int (input("INGRESAR SU VALOR POR FAVOR = "))
@@ -291,195 +450,30 @@ print("=========================================================================
 
 while(Valor_Mini_Interfaz != Fin):
     Verificacion_Menu(Valor_Mini_Interfaz)
-
-
     if(Valor_Mini_Interfaz == 1):   
         while(INICIAR_SESION(Lista_Usuarios,Lista_Contraseñas)):
             Menu_Interactivo_ControlStock()
             Menu = int (input("Ingrese la Opcion elegida: "))
             while(Menu != Fin):
                 Verificacion_Menu_Stocks(Menu)
-                """
-                #######################################################################################
-                ACA  VAN A ESTAR LAS OPCIONES DEL PROGRAMA (AGREGAR,ELIMINAR,ENTRADA,SALIDA,TOTAL_STOCK)
-                #######################################################################################
-                """
                 if(Menu == 1):
-                    print("=================================================================================================")
-                    print("|                                         AGREGAR PRODUCTO                                      |")
-                    print("=================================================================================================")
-                    # Se pide al usuario que ingrese el producto, su precio y la cantidad de unidades ingresadas
-                    print("=================================================================================================")
-                    producto = input("Ingrese el producto: ")
-                    print("=================================================================================================")
-                    while chequear_si_exsiste_producto(producto, productos):
-                        print("=================================================================================================")
-                        print("|                             EL PRODUCTO YA EXISTE, INGRESE UNO NUEVO                          |")
-                        print("=================================================================================================")
-                        producto = input("Ingrese el producto: ")
-                        print("=================================================================================================")
+                    CREAR_PRODUCTO()
 
-                    print("=================================================================================================")    
-                    cantidad = int(input("Ingrese la cantidad de unidades ingresadas: "))
-                    print("=================================================================================================")
-                    while cantidad <= 0:
-                        print("=================================================================================================")
-                        print("|                             CANTIDAD NO VALIDA, INGRESE UNA CANTIDAD MAYOR A 0                |")
-                        print("=================================================================================================")
-                        cantidad = int(input("Ingrese la cantidad de unidades ingresadas: "))
-                        print("=================================================================================================")
-
-                    print("=================================================================================================")
-                    precio = int(input("Ingrese el precio del producto: "))
-                    print("=================================================================================================")
-                    while precio < 0:
-                        print("=================================================================================================")
-                        print("|                             PRECIO NO VALIDO, INGRESE UN PRECIO MAYOR O IGUAL A 0             |")
-                        print("=================================================================================================")
-                        precio = int(input("Ingrese el precio del producto: "))
-                        print("=================================================================================================")
-                    
-                    agregar_producto(producto, productos, stocks, precios, precio, cantidad)
-                    
-                    print("=================================================================================================")
-                    print("|                            EL PRODUCTO HA SIDO AGREGADO AL SISTEMA                            |")
-                    print("=================================================================================================")
-                    print("Productos:", productos)
-                    print("Stocks:", stocks)
-                    print("Precios:", precios)
-                    
-                
                 if(Menu == 2):
-                    print("ESTA ES LA PARTE 2")
+                    ELIMINAR_PRODUCTO()
                 
                 if(Menu == 3):
-                    #Le pregunto si quiere actualizar stock o Precios
-                    print("=================================================================================================")
-                    print("|                                         ACTUALIZAR PRODUCTOS                                  |")
-                    print("=================================================================================================")
-
-                    print("=================================================================================================")
-                    print("|                             1- ACTUALIZAR STOCK                                               |")
-                    print("=================================================================================================")
-                    print("=================================================================================================")
-                    print("|                             2- ACTUALIZAR PRECIO                                              |")
-                    print("=================================================================================================")
-                    opcion = int(input("Ingrese la opción deseada: "))
-                    print("=================================================================================================")
-
-                    while opcion != 1 and opcion != 2:
-                        print("=================================================================================================")
-                        print("|                             OPCION NO VALIDA, INGRESE UNA OPCION VALIDA                       |")
-                        print("=================================================================================================")
-                        opcion = int(input("Ingrese la opción deseada: "))
-                        print("=================================================================================================")
-                    if opcion == 1:
-                        #Le pido el producto a actualizar stock
-                        print("=================================================================================================")
-                        print("|                             ACTUALIZAR STOCK                                                  |")
-                        print("=================================================================================================")
-                        producto = input("Ingrese el producto a actualizar stock: ")
-                        print("=================================================================================================")
-                        while not chequear_si_exsiste_producto(producto, productos):
-                            print("=================================================================================================")
-                            print("|                             EL PRODUCTO NO EXISTE, INGRESE UN PRODUCTO VALIDO                 |")
-                            print("=================================================================================================")
-                            producto = input("Ingrese el producto a actualizar stock: ")
-                            print("=================================================================================================")
-                            
-                        print("=================================================================================================")    
-                        cantidad = int(input("Ingrese la cantidad de unidades ingresadas: "))
-                        print("=================================================================================================")
-                        while cantidad <= 0:
-                            print("=================================================================================================")
-                            print("|                             CANTIDAD NO VALIDA, INGRESE UNA CANTIDAD MAYOR A 0                |")
-                            print("=================================================================================================")
-                            cantidad = int(input("Ingrese la cantidad de unidades ingresadas: "))
-                            print("=================================================================================================")
-                        
-                        actualizar_stock(producto, cantidad, productos, stocks, stock_total)
-                        print("=================================================================================================")
-                        print("|                             STOCK ACTUALIZADO CON EXITO                                       |")
-                        print("=================================================================================================")
-                        print("Productos:", productos)
-                        print("Stocks:", stocks)
-                        print("Precios:", precios)
-
-                    if opcion == 2:
-                        #Le pido el producto a actualizar precio
-                        print("=================================================================================================")
-                        print("|                             ACTUALIZAR PRECIO                                                 |")
-                        print("=================================================================================================")
-                        producto = input("Ingrese el producto a actualizar precio: ")
-                        print("=================================================================================================")
-                        while not chequear_si_exsiste_producto(producto, productos):
-                            print("=================================================================================================")
-                            print("|                             EL PRODUCTO NO EXISTE, INGRESE UN PRODUCTO VALIDO                 |")
-                            print("=================================================================================================")
-                            producto = input("Ingrese el producto a actualizar precio: ")
-                            print("=================================================================================================")
-
-
-                        print("=================================================================================================")
-                        precio = int(input("Ingrese el precio del producto: "))
-                        print("=================================================================================================")
-                        while precio < 0:
-                            print("=================================================================================================")
-                            print("|                             PRECIO NO VALIDO, INGRESE UN PRECIO MAYOR O IGUAL A 0             |")
-                            print("=================================================================================================")
-                            precio = int(input("Ingrese el precio del producto: "))
-                            print("=================================================================================================")
-                        
-                        actualizar_precio(producto, precio, productos, precios)
-                        print("=================================================================================================")
-                        print("|                             PRECIO ACTUALIZADO CON EXITO                                      |")
-                        print("=================================================================================================")
-                        print("Productos:", productos)
-                        print("Stocks:", stocks)
-                        print("Precios:", precios)
+                    ACTUALIZAR_PRODUCTO()
 
                 if(Menu == 4):
-                    print("ESTA ES LA PARTE 4")
-                    pregunta = int(input("¿Quiere retirar un producto? Pulse 1 para iniciar y -1 para finalizar: "))
-
-                    while pregunta != -1:
-                        if pregunta != 1:
-                            print("Opción no válida.")
-                            pregunta = int(input("¿Quiere retirar un producto? Pulse 1 para iniciar y -1 para finalizar: "))
-                        else:
-                            
-                            producto_seleccionado = seleccionar_producto()
-                            if producto_seleccionado == -1:
-                                pregunta = -1  
-                            else:
-                            
-                                cantidad_a_extraer = seleccionar_cantidad(producto_seleccionado)
-                                if cantidad_a_extraer == -1:
-                                    pregunta = int(input("¿Quiere retirar otro producto? Pulse 1 para continuar y -1 para finalizar: "))
-                                else:
-                                    
-                                    seguro = int(input(f"¿Está seguro de retirar {cantidad_a_extraer} {productos[producto_seleccionado]}? 1-Sí, 2-No: "))
-                                    if seguro == 2:
-                                        print("Operación cancelada.")
-                                        pregunta = int(input("¿Quiere retirar otro producto? Pulse 1 para continuar y -1 para finalizar: "))
-                                    else:
-                                        stocks[producto_seleccionado] -= cantidad_a_extraer
-                                        stock_total -= cantidad_a_extraer
-                                        print(f"Operación confirmada. Quedan {stocks[producto_seleccionado]} {productos[producto_seleccionado]}.")
-                                        pregunta = int(input("¿Quiere retirar otro producto? Pulse 1 para continuar y -1 para finalizar: "))
-
-                    mostrar_stock()
+                    SALIDA_STOCK()
 
                 if(Menu == 5):
-                    print("ESTA ES LA PARTE 5")
-
-
+                    IMPRIMIR_STOCK(Productos, Precios, Stocks)
 
                 Menu_Interactivo_ControlStock()
                 Menu = int (input("Ingrese la Opcion elegida: "))
             print("USTED A CERRADO SESSION.")
-
-
 
     if(Valor_Mini_Interfaz == 2):
         CREAR_SESSION()
@@ -490,4 +484,4 @@ while(Valor_Mini_Interfaz != Fin):
     Valor_Mini_Interfaz = int (input("INGRESAR SU VALOR POR FAVOR = "))
     print("=================================================================================================")
 print("USTED A FINALIZADO EL PROGRAMA, HASTA LUEGOO")
-######################################################             PROGRAMA PRINCIPAL             #####################################################################################
+###################################   PROGRAMA PRINCIPAL     ###################################################
