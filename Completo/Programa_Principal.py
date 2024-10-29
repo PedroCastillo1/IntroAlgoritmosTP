@@ -209,7 +209,7 @@ def CREAR_PRODUCTO():
         precio = int(input("Ingrese el precio del producto: "))
         print("=================================================================================================")
                     
-    agregar_producto(producto, Productos, Stocks, Precios, precio, cantidad, Stock_total)
+    agregar_producto(producto, Productos, Stocks, Precios, precio, cantidad)
                     
     print("=================================================================================================")
     print("|                         EL PRODUCTO HA SIDO AGREGADO AL SISTEMA                               |")
@@ -277,7 +277,7 @@ def ACTUALIZAR_PRODUCTO():
             cantidad = int(input("Ingrese la cantidad de unidades ingresadas: "))
             print("=================================================================================================")
         print(Stock_total)                
-        actualizar_stock(producto, cantidad, Productos, Stocks, Stock_total)
+        actualizar_stock(producto, cantidad, Productos, Stocks)
         print(Stock_total)
         print("=================================================================================================")
         print("|                             STOCK ACTUALIZADO CON EXITO                                       |")
@@ -391,7 +391,7 @@ def chequear_si_exsiste_producto(producto, productos):
             return True
     return False
 
-def actualizar_stock(producto, cantidad, productos, stocks, Stock_total):
+def actualizar_stock(producto, cantidad, productos, stocks):
     for i in range(len(productos)):
         if producto == productos[i]:
             stocks[i] += cantidad
@@ -405,7 +405,7 @@ def actualizar_precio(producto, precio, productos, precios):
             precios[i] = precio
             print("El precio del producto: "+ productos[i] + " ha sido actualizado")
                 
-def agregar_producto(producto, productos, stocks, precios, precio, cantidad, stockTotal):
+def agregar_producto(producto, productos, stocks, precios, precio, cantidad):
     # Se agrega el producto a la lista de productos
     productos.append(producto)
     # Se agrega el stock a la lista de stocks
