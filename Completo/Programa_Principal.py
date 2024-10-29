@@ -209,7 +209,7 @@ def CREAR_PRODUCTO():
         precio = int(input("Ingrese el precio del producto: "))
         print("=================================================================================================")
                     
-    agregar_producto(producto, Productos, Stocks, Precios, precio, cantidad)
+    agregar_producto(producto, Productos, Stocks, Precios, precio, cantidad, Stock_total)
                     
     print("=================================================================================================")
     print("|                         EL PRODUCTO HA SIDO AGREGADO AL SISTEMA                               |")
@@ -276,8 +276,9 @@ def ACTUALIZAR_PRODUCTO():
             print("=================================================================================================")
             cantidad = int(input("Ingrese la cantidad de unidades ingresadas: "))
             print("=================================================================================================")
-                        
+        print(Stock_total)                
         actualizar_stock(producto, cantidad, Productos, Stocks, Stock_total)
+        print(Stock_total)
         print("=================================================================================================")
         print("|                             STOCK ACTUALIZADO CON EXITO                                       |")
         print("=================================================================================================")
@@ -374,7 +375,8 @@ def actualizar_stock(producto, cantidad, productos, stocks, stocksTotales):
     for i in range(len(productos)):
         if producto == productos[i]:
             stocks[i] += cantidad
-            stocksTotales += cantidad
+            global Stock_total
+            Stock_total += cantidad
             print("El stock del producto: "+ productos[i] + " ha sido actualizado")
 
 def actualizar_precio(producto, precio, productos, precios):
@@ -383,13 +385,16 @@ def actualizar_precio(producto, precio, productos, precios):
             precios[i] = precio
             print("El precio del producto: "+ productos[i] + " ha sido actualizado")
                 
-def agregar_producto(producto, productos, stocks, precios, precio, cantidad):
+def agregar_producto(producto, productos, stocks, precios, precio, cantidad, stockTotal):
     # Se agrega el producto a la lista de productos
     productos.append(producto)
     # Se agrega el stock a la lista de stocks
     stocks.append(cantidad)
     # Se agrega el precio a la lista de precios
     precios.append(precio)
+
+    global Stock_total
+    Stock_total += cantidad
 
     print(f"El producto {producto} ha sido agregado al sistema")
 ################################## AGREGAR O ACTUALIZAR PRODUCTO  ##############################################
