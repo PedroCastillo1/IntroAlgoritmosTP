@@ -5,7 +5,7 @@ Lista_Contraseñas = ["123","1234","2210","123456","1234567"]
 
 #Listas 
 Productos = ["Remeras","Pantalon","Buzos","Gorras","Zapatillas"]
-Stocks = [10,20,15,23,25]
+Stocks = [30,25,15,60,25]
 Precios = [10,22,32,14,99]
 Stock_total = 93
 
@@ -333,13 +333,31 @@ def SALIDA_STOCK():
                         pregunta = int(input("¿Quiere retirar otro producto? Pulse 1 para continuar y -1 para finalizar: "))
                     else:
                         Stocks[producto_seleccionado] -= cantidad_a_extraer
+                        global stock_total
                         stock_total -= cantidad_a_extraer
                         print(f"Operación confirmada. Quedan {Stocks[producto_seleccionado]} {Productos[producto_seleccionado]}.")
                         pregunta = int(input("¿Quiere retirar otro producto? Pulse 1 para continuar y -1 para finalizar: "))
     mostrar_stock()
     return
 #================================================ OPCION 5 STOCK A IMPRIMIR =============================================
+def Ordenamiento_ListasParaleas_Burbuja(Productos, Precios,Stocks):
+    n = len(Stocks)
+    for i in range(n):
+        for j in range(0, n - i - 1):
+            if Stocks[j] > Stocks[j + 1]:
+                AUX = Stocks[j]
+                Stocks[j] = Stocks[j + 1]
+                Stocks[j + 1] = AUX
+                AUX = Precios[j]
+                Precios[j] = Precios[j + 1]
+                Precios[j + 1] = AUX
+                AUX = Productos[j]
+                Productos[j] = Productos[j + 1]
+                Productos[j + 1] = AUX
+    return Productos, Precios, Stocks
+
 def IMPRIMIR_STOCK(Productos, Precios, Stock):
+    Ordenamiento_ListasParaleas_Burbuja(Productos, Precios,Stocks)
     print("=================================================================================================")
     print("|                                         IMPRIMIR LISTAS                                        |")
     print("=================================================================================================")
@@ -359,6 +377,8 @@ def IMPRIMIR_STOCK(Productos, Precios, Stock):
         print(Stock[i], end=" ")
     print()
     print("=================================================================================================")
+    print(f"El Stock Total es de: {Stock_total}")
+    print("=================================================================================================")
     return
 
 ################################### FUNCIONES DE LAS OPCIONES DEL CONTROL DE STOCK ####################################
@@ -371,7 +391,7 @@ def chequear_si_exsiste_producto(producto, productos):
             return True
     return False
 
-def actualizar_stock(producto, cantidad, productos, stocks, stocksTotales):
+def actualizar_stock(producto, cantidad, productos, stocks, Stock_total):
     for i in range(len(productos)):
         if producto == productos[i]:
             stocks[i] += cantidad
