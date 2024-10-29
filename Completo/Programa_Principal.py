@@ -332,6 +332,7 @@ def SALIDA_STOCK():
                         pregunta = int(input("¿Quiere retirar otro producto? Pulse 1 para continuar y -1 para finalizar: "))
                     else:
                         Stocks[producto_seleccionado] -= cantidad_a_extraer
+                        global stock_total
                         stock_total -= cantidad_a_extraer
                         print(f"Operación confirmada. Quedan {Stocks[producto_seleccionado]} {Productos[producto_seleccionado]}.")
                         pregunta = int(input("¿Quiere retirar otro producto? Pulse 1 para continuar y -1 para finalizar: "))
@@ -343,15 +344,12 @@ def Ordenamiento_ListasParaleas_Burbuja(Productos, Precios,Stocks):
     for i in range(n):
         for j in range(0, n - i - 1):
             if Stocks[j] > Stocks[j + 1]:
-                # Intercambiar Stocks
                 AUX = Stocks[j]
                 Stocks[j] = Stocks[j + 1]
                 Stocks[j + 1] = AUX
-                # Intercambiar precios para mantener la correspondencia
                 AUX = Precios[j]
                 Precios[j] = Precios[j + 1]
                 Precios[j + 1] = AUX
-                # Intercambiar productos para mantener la correspondencia
                 AUX = Productos[j]
                 Productos[j] = Productos[j + 1]
                 Productos[j + 1] = AUX
