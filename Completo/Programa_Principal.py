@@ -5,9 +5,15 @@ Lista_Contraseñas = ["123","1234","2210","123456","1234567"]
 
 #Listas 
 Productos = ["Remeras","Pantalon","Buzos","Gorras","Zapatillas"]
-Stocks = [30,25,15,60,25]
+Stocks = [10,20,30,40,50]
 Precios = [10,22,32,14,99]
-Stock_total = 93
+Stock_total = 150
+
+########################## mostrar productos #########################################################################
+def read_product (Productos):
+    for i in range(len(Productos)):
+        print(Productos[i], end=" ")
+    return    
 
 ############################################ INTERFACES DEL PROGRAMA ##################################################
 def Menu_Interactivo_GestionUsuario():
@@ -175,46 +181,47 @@ def Buscar_Usuario(Lista_Usuarios, Lista_Contraseñas, Nombre_Usuario, Contrase�
 
 ################################### FUNCIONES DE LAS OPCIONES DEL CONTROL DE STOCK ####################################
 #================================================ OPCION 1 CREAR_PRODUCTO =============================================
-def CREAR_PRODUCTO():
+def CREAR_PRODUCTO(Stock_total):
     print("=================================================================================================")
     print("|                                    AGREGAR PRODUCTO                                           |")
     print("=================================================================================================")
     print("=================================================================================================")
-    producto = input("Ingrese el producto: ")
+    New_producto = input("Ingrese el producto: ")
     print("=================================================================================================")
-    while chequear_si_exsiste_producto(producto, Productos):
+    while chequear_si_exsiste_producto(New_producto, Productos):
         print("=================================================================================================")
         print("|                       EL PRODUCTO YA EXISTE, INGRESE UNO NUEVO                                |")
         print("=================================================================================================")
-        producto = input("Ingrese el producto: ")
+        New_producto = input("Ingrese el producto: ")
         print("=================================================================================================")
 
     print("=================================================================================================")    
-    cantidad = int(input("Ingrese la cantidad de unidades ingresadas: "))
+    New_cantidad = int(input("Ingrese la cantidad de unidades ingresadas: "))
     print("=================================================================================================")
-    while cantidad <= 0:
+    while New_cantidad <= 0:
         print("=================================================================================================")
         print("|                      CANTIDAD NO VALIDA, INGRESE UNA CANTIDAD MAYOR A 0                       |")
         print("=================================================================================================")
-        cantidad = int(input("Ingrese la cantidad de unidades ingresadas: "))
+        New_cantidad = int(input("Ingrese la cantidad de unidades ingresadas: "))
         print("=================================================================================================")
 
     print("=================================================================================================")
-    precio = int(input("Ingrese el precio del producto: "))
+    New_precio = int(input("Ingrese el precio del producto: "))
     print("=================================================================================================")
-    while precio < 0:
+    while New_precio < 0:
         print("=================================================================================================")
         print("|                    PRECIO NO VALIDO, INGRESE UN PRECIO MAYOR O IGUAL A 0                      |")
         print("=================================================================================================")
-        precio = int(input("Ingrese el precio del producto: "))
+        New_precio = int(input("Ingrese el precio del producto: "))
         print("=================================================================================================")
-                    
-    agregar_producto(producto, Productos, Stocks, Precios, precio, cantidad)
-                    
+
+    Stock_total = agregar_producto(New_producto, New_cantidad, New_precio, Productos, Stocks, Precios, Stock_total)
+     
+    Ordenamiento_ListasParaleas_Burbuja(Productos, Precios,Stocks)
     print("=================================================================================================")
     print("|                         EL PRODUCTO HA SIDO AGREGADO AL SISTEMA                               |")
     print("=================================================================================================")
-    return
+    return Stock_total
 #================================================ OPCION 2 ELIMINAR_PRODCUTO =============================================
 def ELIMINAR_PRODUCTO():
     print("=================================================================================================")
@@ -227,11 +234,11 @@ def ELIMINAR_PRODUCTO():
         print("=================================================================================================")
         Producto_Eliminar = (input("Ingrese el nombre del producto que desea eliminar: "))
         print("=================================================================================================")
-        ELIMINAR_PRODUCTO(Productos, Precios, Stocks, Producto_Eliminar)
+        Borrar_Producto(Productos, Precios, Stocks, Producto_Eliminar)
         print("=================================================================================================")
         Verificar_Eliminar = int (input("Quiere eliminar un Producto 1= Si , -1 = No: "))
         print("=================================================================================================")
-    IMPRIMIR_STOCK(Productos, Precios, Stocks)
+    IMPRIMIR_STOCK()
     return
 #================================================ OPCION 3 ACTUALIZAR_PRODCUTO =============================================
 def ACTUALIZAR_PRODUCTO():
@@ -276,13 +283,12 @@ def ACTUALIZAR_PRODUCTO():
             print("=================================================================================================")
             cantidad = int(input("Ingrese la cantidad de unidades ingresadas: "))
             print("=================================================================================================")
-        print(Stock_total)                
-        actualizar_stock(producto, cantidad, Productos, Stocks)
-        print(Stock_total)
+                        
+        actualizar_stock(producto, cantidad, Productos, Stocks, Stock_total)
         print("=================================================================================================")
         print("|                             STOCK ACTUALIZADO CON EXITO                                       |")
         print("=================================================================================================")
-
+        Ordenamiento_ListasParaleas_Burbuja(Productos, Precios,Stocks)
     if (opcion == 2):
         print("=================================================================================================")
         print("|                                   ACTUALIZAR PRECIO                                           |")
@@ -312,73 +318,63 @@ def ACTUALIZAR_PRODUCTO():
         print("=================================================================================================")
     return
 #================================================ OPCION 4 SALIDA_STOCK =============================================
-def SALIDA_STOCK():
-    pregunta = int(input("¿Quiere retirar un producto? Pulse 1 para iniciar y -1 para finalizar: "))
-    while pregunta != -1:
-        if pregunta != 1:
-            print("Opción no válida.")
-            pregunta = int(input("¿Quiere retirar un producto? Pulse 1 para iniciar y -1 para finalizar: "))
-        else:
-            producto_seleccionado = seleccionar_producto()
-            if producto_seleccionado == -1:
-                pregunta = -1  
-            else:
-                cantidad_a_extraer = seleccionar_cantidad(producto_seleccionado)
-                if cantidad_a_extraer == -1:
-                    pregunta = int(input("¿Quiere retirar otro producto? Pulse 1 para continuar y -1 para finalizar: "))
-                else:
-                    seguro = int(input(f"¿Está seguro de retirar {cantidad_a_extraer} {Productos[producto_seleccionado]}? 1-Sí, 2-No: "))
-                    if seguro == 2:
-                        print("Operación cancelada.")
-                        pregunta = int(input("¿Quiere retirar otro producto? Pulse 1 para continuar y -1 para finalizar: "))
-                    else:
-                        Stocks[producto_seleccionado] -= cantidad_a_extraer
-                        global stock_total
-                        stock_total -= cantidad_a_extraer
-                        print(f"Operación confirmada. Quedan {Stocks[producto_seleccionado]} {Productos[producto_seleccionado]}.")
-                        pregunta = int(input("¿Quiere retirar otro producto? Pulse 1 para continuar y -1 para finalizar: "))
-    mostrar_stock()
-    return
+def retirar_stock():
+    continuar = 1
+    while continuar == 1:
+        IMPRIMIR_STOCK()
+        indice_producto = solicitar_producto()
+        cantidad_extraer = solicitar_cantidad(Stocks[indice_producto])
+
+        # Ajuste del stock
+        Stocks[indice_producto] -= cantidad_extraer
+        global Stock_total
+        Stock_total -= cantidad_extraer
+        print("=================================================================================================")
+        print(f"| Extracción exitosa de {cantidad_extraer} unidades de '{Productos[indice_producto]}'.            |")
+        print("=================================================================================================")
+        print(f"| Stock actual de '{Productos[indice_producto]}': {Stocks[indice_producto]} unidades.             |")
+        print(f"| Stock total actualizado: {Stock_total} unidades.                                                |")
+        print("=================================================================================================")
+
+        # Pregunta si el usuario desea continuar o finalizar
+        print("=================================================================================================")
+        continuar = int(input("| ¿Desea retirar otro producto? Ingrese 1 para continuar o 2 para finalizar: "))
+        print("=================================================================================================")
+    print("=================================================================================================")
+    print("| Ha finalizado el programa. ¡Hasta luego!                                                      |")
+    print("=================================================================================================")
+
 #================================================ OPCION 5 STOCK A IMPRIMIR =============================================
 def Ordenamiento_ListasParaleas_Burbuja(Productos, Precios,Stocks):
     n = len(Stocks)
     for i in range(n):
         for j in range(0, n - i - 1):
             if Stocks[j] > Stocks[j + 1]:
+                # Intercambiar Stocks
                 AUX = Stocks[j]
                 Stocks[j] = Stocks[j + 1]
                 Stocks[j + 1] = AUX
+                # Intercambiar precios para mantener la correspondencia
                 AUX = Precios[j]
                 Precios[j] = Precios[j + 1]
                 Precios[j + 1] = AUX
+                # Intercambiar productos para mantener la correspondencia
                 AUX = Productos[j]
                 Productos[j] = Productos[j + 1]
                 Productos[j + 1] = AUX
     return Productos, Precios, Stocks
 
-def IMPRIMIR_STOCK(Productos, Precios, Stock):
-    Ordenamiento_ListasParaleas_Burbuja(Productos, Precios,Stocks)
+def IMPRIMIR_STOCK():
     print("=================================================================================================")
-    print("|                                         IMPRIMIR LISTAS                                        |")
+    print("|                                   PRODUCTOS DISPONIBLES                                       |")
     print("=================================================================================================")
-    print("Lista de Productos Registrados:", end=" ")
+    print("| Producto     | Stock disponible | Precio por unidad                                           |")
+    print("=================================================================================================")
     for i in range(len(Productos)):
-        print(Productos[i], end=" ")
-    print() 
-    print("---------------------------------------")
-    print("Lista de Precios Registradas:", end=" ")
-    for i in range(len(Precios)):
-        print(Precios[i], end=" ")
-    print()
+        print(f"| {Productos[i]:<12} | {Stocks[i]:<15}  | ${Precios[i]:<20}                                       |")
     print("=================================================================================================")
-    print("---------------------------------------")
-    print("Lista de Cantidad Stock Registradas:", end=" ")
-    for i in range(len(Stock)):
-        print(Stock[i], end=" ")
-    print()
-    print("=================================================================================================")
-    print(f"El Stock Total es de: {Stock_total}")
-    print("=================================================================================================")
+    print(f"Stock total: {Stock_total} unidades ")
+    
     return
 
 ################################### FUNCIONES DE LAS OPCIONES DEL CONTROL DE STOCK ####################################
@@ -391,11 +387,10 @@ def chequear_si_exsiste_producto(producto, productos):
             return True
     return False
 
-def actualizar_stock(producto, cantidad, productos, stocks):
+def actualizar_stock(producto, cantidad, productos, stocks, Stock_total):
     for i in range(len(productos)):
         if producto == productos[i]:
             stocks[i] += cantidad
-            global Stock_total
             Stock_total += cantidad
             print("El stock del producto: "+ productos[i] + " ha sido actualizado")
 
@@ -405,18 +400,18 @@ def actualizar_precio(producto, precio, productos, precios):
             precios[i] = precio
             print("El precio del producto: "+ productos[i] + " ha sido actualizado")
                 
-def agregar_producto(producto, productos, stocks, precios, precio, cantidad):
+def agregar_producto(New_producto, New_cantidad, New_precio, Productos, Stocks, Precios, Stock_total):
     # Se agrega el producto a la lista de productos
-    productos.append(producto)
+    Productos.append(New_producto)
     # Se agrega el stock a la lista de stocks
-    stocks.append(cantidad)
+    Stocks.append(New_cantidad)
     # Se agrega el precio a la lista de precios
-    precios.append(precio)
+    Precios.append(New_precio)
 
-    global Stock_total
-    Stock_total += cantidad
+    Stock_total += New_cantidad
 
-    print(f"El producto {producto} ha sido agregado al sistema")
+    print(f"El producto {New_producto} ha sido agregado al sistema")
+    return Stock_total
 ################################## AGREGAR O ACTUALIZAR PRODUCTO  ##############################################
 
 ######################################## ELIMINAR PRODUCTOS ####################################################
@@ -436,35 +431,52 @@ def Borrar_Producto(productos, precios, stock, nombre_producto):
     print("=================================================================================================")    
     return
 ######################################## SALIDA DE PRODUCTOS  ##################################################
-def seleccionar_producto():
-    extraer = int(input("¿Qué producto desea extraer? 0-r , 1-z, 2-b , 3-g , 4-p (o -1 para salir): "))
-    if extraer == -1:
-        print("Saliendo del programa.")
-        return -1  
-    while extraer < 0 or extraer > 4:
-        print("Producto inexistente. Inténtelo de nuevo.")
-        extraer = int(input("¿Qué producto desea extraer? 0-r , 1-z, 2-b , 3-g , 4-p (o -1 para salir): "))
-    return extraer
+def Buscar_Producto(Productos, Producto_Buscar):
+    for i in range(len(Productos)):
+        if Productos[i] == Producto_Buscar:
+            return i
+    return -1
+
+def solicitar_producto():
+    producto_valido = -1
+    while producto_valido == -1:
+        print("=================================================================================================")
+        producto_buscado = input("| ¿Qué producto desea extraer?: ")
+        print("=================================================================================================")
+        producto_valido = Buscar_Producto(Productos, producto_buscado)
+        if producto_valido == -1:
+            print("=================================================================================================")
+            print("| El producto ingresado es incorrecto. Intente nuevamente.                                      |")
+            print("=================================================================================================")
+        else:
+            print("=================================================================================================")
+            print(f"| Producto '{Productos[producto_valido]}' encontrado.                                           |")
+            print("=================================================================================================")
+            confirmacion = int(input("| ¿Está seguro? Ingrese 1 para confirmar o 2 para elegir otro producto: "))
+            print("=================================================================================================")
+            if confirmacion != 1:
+                producto_valido = -1  
+    return producto_valido
+
+def solicitar_cantidad(stock_disponible):
+    cantidad = -1  # Inicialización con un valor inválido
+    while cantidad <= 0 or cantidad > stock_disponible:
+        print("=================================================================================================")
+        cantidad = int(input(f"| Ingrese la cantidad de unidades que desea extraer (disponible: {stock_disponible}): "))
+        print("=================================================================================================")
+        
+        if cantidad <= 0:
+            print("=================================================================================================")
+            print("| Cantidad inexistente. Ingrese un valor mayor a 0.                                             |")
+            print("=================================================================================================")
+        elif cantidad > stock_disponible:
+            print("=================================================================================================")
+            print(f"| Stock insuficiente. Solo hay {stock_disponible} unidades disponibles.                          |")
+            print("=================================================================================================")
+    
+    return cantidad
 
 
-def seleccionar_cantidad(producto):
-    cantidad_a_extraer = int(input(f"Cantidad de {Productos[producto]} a extraer (o -1 para cancelar): "))
-    if cantidad_a_extraer == -1:
-        print("Operación cancelada.")
-        return -1 
-    while cantidad_a_extraer > Stocks[producto] or cantidad_a_extraer < 0:
-        if cantidad_a_extraer > Stocks[producto]:
-            print(f"Stock insuficiente. Solo hay {Stocks[producto]} unidades de {Productos[producto]}.")
-        elif cantidad_a_extraer < 0:
-            print("Cantidad negativa no permitida.")
-        cantidad_a_extraer = int(input(f"Cantidad de {Productos[producto]} a extraer (o -1 para cancelar): "))
-    return cantidad_a_extraer
-
-def mostrar_stock():
-    print(f"El stock final quedó en {Stock_total}.")
-    for i, producto in enumerate(Productos):
-        print(f"La cantidad de {producto} es de {Stocks[i]}.")
-    return
 ################################## SALIDA DE PRODUCTOS  ########################################################
 
 ###################################   PROGRAMA PRINCIPAL     ###################################################
@@ -482,7 +494,7 @@ while(Valor_Mini_Interfaz != Fin):
             while(Menu != Fin):
                 Verificacion_Menu_Stocks(Menu)
                 if(Menu == 1):
-                    CREAR_PRODUCTO()
+                    Stock_total = CREAR_PRODUCTO(Stock_total)
 
                 if(Menu == 2):
                     ELIMINAR_PRODUCTO()
@@ -491,10 +503,10 @@ while(Valor_Mini_Interfaz != Fin):
                     ACTUALIZAR_PRODUCTO()
 
                 if(Menu == 4):
-                    SALIDA_STOCK()
+                    retirar_stock()
 
                 if(Menu == 5):
-                    IMPRIMIR_STOCK(Productos, Precios, Stocks)
+                    IMPRIMIR_STOCK()
 
                 Menu_Interactivo_ControlStock()
                 Menu = int (input("Ingrese la Opcion elegida: "))
